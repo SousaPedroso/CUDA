@@ -1,1 +1,1 @@
-This repository contains my solutions for each exercise and the final challenge to acquire the certificate
+Solutions for the exercises and the final challenge for acquire the certificate
