@@ -76,6 +76,19 @@ int main()
   blocks = processorCount*2;
   threadsPerBlock = props.maxThreadsPerBlock;
 
+  /*
+    Experiments using cudaMemPrefetchAsync to understand its impact on
+    page-faulting and memory migration
+   * Using cudaMemPrefetchAsync each time reduced the total time of execution
+   * of the program, decreasing from 4285931ns (97.5%) to 122655ns (52.6%)
+   * the amount of time used by initWith method, due to not having anymore
+   * data migration overhead
+
+  */
+  cudaMemPrefetchAsync(a, size, deviceId);
+  cudaMemPrefetchAsync(b, size, deviceId);
+  cudaMemPrefetchAsync(c, size, deviceId);
+
   initWith<<<blocks, threadsPerBlock>>>(3, a, N);
   initWith<<<blocks, threadsPerBlock>>>(4, b, N);
   initWith<<<blocks, threadsPerBlock>>>(0, c, N);
