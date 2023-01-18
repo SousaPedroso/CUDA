@@ -101,6 +101,8 @@ int main()
     exit(1);
   }
 
+  cudaMemPrefetchAsync(c, size, cudaCpuDeviceId); // Prefetch c to CPU
+
   checkElementsAre(7, c, N);
 
   if (checkCuda(cudaFree(a)) != cudaSuccess){
