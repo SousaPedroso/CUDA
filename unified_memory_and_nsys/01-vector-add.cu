@@ -79,6 +79,9 @@ int main()
   initWith<<<blocks, threadsPerBlock>>>(3, a, N);
   initWith<<<blocks, threadsPerBlock>>>(4, b, N);
   initWith<<<blocks, threadsPerBlock>>>(0, c, N);
+  if (checkCuda(cudaDeviceSynchronize()) != cudaSuccess){
+    exit(1);
+  }
 
   addVectorsInto<<<blocks, threadsPerBlock>>>(c, a, b, N);
   if (checkCuda(cudaDeviceSynchronize()) != cudaSuccess){
