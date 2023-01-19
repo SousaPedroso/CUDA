@@ -96,7 +96,14 @@ int main()
     exit(1);
   }
 
+  cudaError_t addVectorsErr;
   addVectorsInto<<<blocks, threadsPerBlock>>>(c, a, b, N);
+
+  addVectorsErr = cudaGetLastError();
+  if (checkCuda(addVectorsErr) != cudaSuccess){
+    exit(1);
+  }
+
   if (checkCuda(cudaDeviceSynchronize()) != cudaSuccess){
     exit(1);
   }
